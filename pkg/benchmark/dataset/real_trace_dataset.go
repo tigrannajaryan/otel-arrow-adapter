@@ -86,10 +86,12 @@ func NewRealTraceDataset(path string, sortOrder []string) *RealTraceDataset {
 	rand.Shuffle(len(ds.spans), spanSorter{RealTraceDataset: ds}.Swap)
 
 	for i := len(sortOrder) - 1; i >= 0; i-- {
-		sort.Stable(spanSorter{
-			RealTraceDataset: ds,
-			field:            sortOrder[i],
-		})
+		sort.Stable(
+			spanSorter{
+				RealTraceDataset: ds,
+				field:            sortOrder[i],
+			},
+		)
 	}
 
 	return ds
@@ -176,23 +178,27 @@ func (d *RealTraceDataset) getSortkey(field string, span ptrace.Span) (result st
 		// scan attributes next
 	}
 
-	span.Attributes().Range(func(key string, value pcommon.Value) bool {
-		if key == field {
-			result = v2s(value)
-			return false
-		}
-		return true
-	})
+	span.Attributes().Range(
+		func(key string, value pcommon.Value) bool {
+			if key == field {
+				result = v2s(value)
+				return false
+			}
+			return true
+		},
+	)
 	if result != "" {
 		return result
 	}
-	d.s2r[span].Attributes().Range(func(key string, value pcommon.Value) bool {
-		if key == field {
-			result = v2s(value)
-			return false
-		}
-		return true
-	})
+	d.s2r[span].Attributes().Range(
+		func(key string, value pcommon.Value) bool {
+			if key == field {
+				result = v2s(value)
+				return false
+			}
+			return true
+		},
+	)
 	panic(fmt.Sprintf("missing getSortkey lookup: %v %v", field, span))
 }
 
