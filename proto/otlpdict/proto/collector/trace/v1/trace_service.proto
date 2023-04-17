@@ -17,6 +17,7 @@ syntax = "proto3";
 package otlpdict.proto.collector.trace.v1;
 
 import "otlpdict/proto/trace/v1/trace.proto";
+import "otlpdict/proto/common/v1/common.proto";
 
 option csharp_namespace = "otlpdict.proto.Collector.Trace.V1";
 option java_multiple_files = true;
@@ -40,15 +41,10 @@ message ExportTraceServiceRequest {
   // data from multiple origins typically batch the data before forwarding further and
   // in that case this array will contain multiple elements.
   repeated otlpdict.proto.trace.v1.ResourceSpans resource_spans = 1;
-  Dict key_dict = 2;
-  Dict val_dict = 3;
-  Dict span_name_dict = 4;
-  Dict event_name_dict = 5;
-}
-
-message Dict {
-  uint64 start_index = 1;
-  repeated string values = 2;
+  otlpdict.proto.common.v1.Dict key_dict = 2;
+  otlpdict.proto.common.v1.Dict val_dict = 3;
+  otlpdict.proto.common.v1.Dict span_name_dict = 4;
+  otlpdict.proto.common.v1.Dict event_name_dict = 5;
 }
 
 message ExportTraceServiceResponse {

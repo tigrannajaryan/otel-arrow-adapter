@@ -247,9 +247,9 @@ func (s *TracesProfileable) resetCumulativeDicts() {
 	s.rEventNameDict = []string{""}
 }
 
-func dictToProto(dict sendDict) *otlpdicttraces.Dict {
+func dictToProto(dict sendDict) *otlpdictcommon.Dict {
 	ofs := len(dict.cum) - len(dict.delta)
-	dest := &otlpdicttraces.Dict{
+	dest := &otlpdictcommon.Dict{
 		StartIndex: uint64(ofs),
 		Values:     make([]string, len(dict.delta)),
 	}
@@ -463,7 +463,7 @@ func (s *TracesProfileable) equalValues(left pcommon.Value, right *otlpdictcommo
 	return true
 }
 
-func deserializeDict(src *otlpdicttraces.Dict, dest *[]string) {
+func deserializeDict(src *otlpdictcommon.Dict, dest *[]string) {
 	if src == nil {
 		return
 	}

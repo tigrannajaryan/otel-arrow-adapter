@@ -17,6 +17,7 @@ syntax = "proto3";
 package otlpdict.proto.collector.metrics.v1;
 
 import "otlpdict/proto/metrics/v1/metrics.proto";
+import "otlpdict/proto/common/v1/common.proto";
 
 option csharp_namespace = "otlpdict.proto.Collector.Metrics.V1";
 option java_multiple_files = true;
@@ -40,6 +41,9 @@ message ExportMetricsServiceRequest {
   // data from multiple origins typically batch the data before forwarding further and
   // in that case this array will contain multiple elements.
   repeated otlpdict.proto.metrics.v1.ResourceMetrics resource_metrics = 1;
+  otlpdict.proto.common.v1.Dict key_dict = 2;
+  otlpdict.proto.common.v1.Dict val_dict = 3;
+  otlpdict.proto.common.v1.Dict metric_name_dict = 4;
 }
 
 message ExportMetricsServiceResponse {

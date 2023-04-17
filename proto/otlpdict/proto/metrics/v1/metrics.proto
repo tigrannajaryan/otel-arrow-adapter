@@ -164,9 +164,11 @@ message Metric {
 
   // name of the metric, including its DNS name prefix. It must be unique.
   string name = 1;
+  uint64 name_ref = 12;
 
   // description of the metric, which can be used in documentation.
   string description = 2;
+  uint64 description_ref = 13;
 
   // unit in which the metric value is reported. Follows the format
   // described by http://unitsofmeasure.org/ucum.html.
